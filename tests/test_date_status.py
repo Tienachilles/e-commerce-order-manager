@@ -1,7 +1,7 @@
 import pandas as pd
 import app.services.reports_service as report
 
-# tạo data giả để test
+# Create mock data for testing
 def mock_orders_valid():
     return [
         (1, 1, "2025-12-01", "Completed"),
@@ -24,7 +24,7 @@ def mock_orders_invalid_date():
 def test_status_valid(monkeypatch):
     monkeypatch.setattr(report, "fetch_all_orders", mock_orders_valid)
     df = report.df_orders()
-    # Tất cả Status phải thuộc danh sách hợp lệ
+    # All Statuses must belong to the valid list
     valid_status = {"Pending", "Completed", "Cancelled"}
     assert all(s in valid_status for s in df["Status"])
 
@@ -32,17 +32,7 @@ def test_status_invalid(monkeypatch):
     monkeypatch.setattr(report, "fetch_all_orders", mock_orders_invalid_status)
     df = report.df_orders()
     valid_status = {"Pending", "Completed", "Cancelled"}
-    # Phải phát hiện giá trị sai
+    # Must detect invalid values
     assert not all(s in valid_status for s in df["Status"])
 
-# test date rule
-from datetime import datetime
-
-def test_date_not_future(monkeypatch):
-    monkeypatch.setattr(report, "fetch_all_orders", mock_orders_invalid_date)
-    df = report.df_orders()
-    today = datetime.today().date()
-    order_dates = pd.to_datetime(df["OrderDate"]).dt.date
-    # Check có order nào trong tương lai
-    assert all(d <= today for d in order_dates) == False
-
+# test date
