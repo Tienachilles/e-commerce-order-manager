@@ -296,6 +296,14 @@ class App:
     def show_reports(self): render_reports(self.content)
 
 if __name__ == "__main__":
+    try:
+        from ctypes import windll
+        # Turn on mode High DPI Awareness 
+        windll.shcore.SetProcessDpiAwareness(1)
+    except Exception:
+        pass
+    # --------------------------------------------------------------------
+
     root = tk.Tk()
     root.update_idletasks() 
     App(root)
