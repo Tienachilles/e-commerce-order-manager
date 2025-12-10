@@ -1,44 +1,45 @@
-create  database if not exists  ecommerce;
-use ecommerce;
--- create tables
--- tắt kiểm tra fk tạm thời
+CREATE DATABASE IF NOT EXISTS ecommerce;
+USE ecommerce;
+
+-- Disable foreign key checks temporarily
 SET FOREIGN_KEY_CHECKS = 0;
--- drop các bảng mình định đặt tên
+
+-- Drop existing tables if they exist to start fresh
 DROP TABLE IF EXISTS OrdersItems;
 DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS Products;
 DROP TABLE IF EXISTS Customers;
--- bật lại khi kiểm tra xong
-set FOREIGN_KEY_CHECKS = 0;
-create table Customers(
-	CustomerID varchar(10) primary key,
-    Name varchar(100) not null
+
+-- Create Tables
+
+CREATE TABLE Customers(
+    CustomerID varchar(10) PRIMARY KEY,
+    Name varchar(100) NOT NULL
 );
 
-
-create table Products(
-	ProductID varchar(10) primary key,
-    Name varchar(100) not null,
-    Price decimal(10,2) not null
+CREATE TABLE Products(
+    ProductID varchar(10) PRIMARY KEY,
+    Name varchar(100) NOT NULL,
+    Price decimal(10,2) NOT NULL
 );
 
-
-create table Orders (
-	OrderID varchar(10) primary key,
-    CustomerID varchar(10) not null,
-    OrderDate date not null,
-    Status varchar(50) default 'Pending',
-    foreign key(CustomerID) references Customers(CustomerID)
+CREATE TABLE Orders (
+    OrderID varchar(10) PRIMARY KEY,
+    CustomerID varchar(10) NOT NULL,
+    OrderDate date NOT NULL,
+    Status varchar(50) DEFAULT 'Pending',
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
 );
 
-
-create table OrdersItems(
-	OrderItemID INT AUTO_INCREMENT primary key,
-    OrderID varchar(10) not null,
-    ProductID varchar(10) not null,
-    Quantity INT not null,
-    Price decimal(10,2) not null,
-    foreign key (OrderID) references Orders(OrderID),
-    foreign key (ProductID) references Products(ProductID)
+CREATE TABLE OrdersItems(
+    OrderItemID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID varchar(10) NOT NULL,
+    ProductID varchar(10) NOT NULL,
+    Quantity INT NOT NULL,
+    Price decimal(10,2) NOT NULL,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
-    
+
+-- Re-enable foreign key checks
+SET FOREIGN_KEY_CHECKS = 1;
