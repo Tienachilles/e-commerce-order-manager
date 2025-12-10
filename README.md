@@ -105,4 +105,4 @@ python -m app.main
 **Supervisor:** Tran Hung
 
 ---
-*Created for the "Database Systems" Midterm Project.*
+
