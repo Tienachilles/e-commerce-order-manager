@@ -1,7 +1,7 @@
 import pandas as pd
-import app.services.reports_service as report # import cái file tính revenue, còn file export chỉ là xuất file thôi, # vì nó trong thư mục service, service là con của app nên phải ghi app.services.report
+import app.services.reports_service as report # Import revenue calculation module (export module is separate)
 
-# phần dữ liệu giả lập thay vì data thật
+# Mock data instead of real data
 def mock_fetch_order_items_case1():
     # OrderID, ProductID, Quantity, Price
     return [
@@ -11,13 +11,13 @@ def mock_fetch_order_items_case1():
     ]
 
 def test_revenue_basic(monkeypatch):
-    """Test tính doanh thu cơ bản."""
+    """Test basic revenue calculation."""
     
     monkeypatch.setattr(
         report, "fetch_order_items", mock_fetch_order_items_case1
     )
 
-# Quantity hoặc Price = 0
+# Quantity or Price = 0
 def mock_fetch_order_items_zero():
     return [
         (1, 101, 0, 50),   # revenue = 0
@@ -26,7 +26,7 @@ def mock_fetch_order_items_zero():
     ]
 
 def test_revenue_zero(monkeypatch):
-    """Test xử lý Quantity/Price = 0."""    
+    """Test handling of Quantity/Price = 0."""    
     monkeypatch.setattr(
         report, "fetch_order_items", mock_fetch_order_items_zero
     )
@@ -37,12 +37,12 @@ def test_revenue_zero(monkeypatch):
     })
     pd.testing.assert_frame_equal(df, expected)
 
-# Không có items
+# No items
 def mock_fetch_empty():
     return []
 
 def test_revenue_empty(monkeypatch):
-    """Test khi không có dữ liệu."""    
+    """Test when there is no data."""    
     monkeypatch.setattr(
         report, "fetch_order_items", mock_fetch_empty
     )
@@ -50,4 +50,3 @@ def test_revenue_empty(monkeypatch):
     df = report.report_order_summary()
     expected = pd.DataFrame(columns=["OrderID", "OrderRevenue"])
     pd.testing.assert_frame_equal(df, expected)
-
