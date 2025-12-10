@@ -8,7 +8,7 @@ def add_customer(CustomerID, Name):
     conn.commit()
     cursor.close()
     conn.close()
-    print("Đã chèn:", CustomerID, Name)
+    print("Inserted:", CustomerID, Name)
 
 def get_customer(CustomerID):
     conn = get_connection()
@@ -28,7 +28,7 @@ def update_customer(CustomerID, Name):
     conn.commit()
     cursor.close()
     conn.close()
-    print("Đã cập nhật:", CustomerID, "thành", Name)
+    print("Updated:", CustomerID, "to", Name)
 
 def delete_customer(CustomerID):
     conn = get_connection()
@@ -38,4 +38,4 @@ def delete_customer(CustomerID):
     conn.commit()
     cursor.close()
     conn.close()
-    print("Đã xóa:", CustomerID)
+    print("Deleted:", CustomerID)
