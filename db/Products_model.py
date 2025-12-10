@@ -21,7 +21,7 @@ def add_product(ProductID, Name, Price):
     conn.commit()
     cursor.close()
     conn.close()
-    print("Đã chèn sản phẩm:", ProductID, Name, Price)
+    print("Inserted product:", ProductID, Name, Price)
 
 
 # UPDATE
@@ -33,7 +33,7 @@ def update_product(ProductID, Name, Price):
     conn.commit()
     cursor.close()
     conn.close()
-    print("Đã cập nhật sản phẩm:", ProductID, Name, Price)
+    print("Updated product:", ProductID, Name, Price)
 
 
 # DELETE
@@ -45,4 +45,4 @@ def delete_product(ProductID):
     conn.commit()
     cursor.close()
     conn.close()
-    print("Đã xóa sản phẩm:", ProductID)
+    print("Deleted product:", ProductID)
