@@ -17,9 +17,9 @@ def get_order(OrderID):
 # CREATE
 def add_order(OrderID, CustomerID, OrderDate, Status):
 
-    # Nếu khách hàng chưa tồn tại → tự động thêm
+    # If customer does not exist -> automatically add
     if not get_customer(CustomerID):
-        print("⚠ Khách hàng chưa tồn tại. Đang thêm mới...")
+        print("⚠ Customer does not exist. Adding new customer...")
         add_customer(CustomerID, f"Customer_{CustomerID}")
 
     conn = get_connection()
@@ -29,15 +29,15 @@ def add_order(OrderID, CustomerID, OrderDate, Status):
     conn.commit()
     cursor.close()
     conn.close()
-    print("Đã chèn đơn hàng:", OrderID)
+    print("Inserted order:", OrderID)
 
 
 # UPDATE
 def update_order(OrderID, CustomerID, OrderDate, Status):
 
-    # Nếu khách hàng chưa tồn tại → tự động thêm
+    # If new customer ID does not exist -> automatically add
     if not get_customer(CustomerID):
-        print("Khách hàng mới chưa tồn tại. Đang thêm mới...")
+        print("New customer ID does not exist. Adding new customer...")
         add_customer(CustomerID, f"Customer_{CustomerID}")
 
     conn = get_connection()
@@ -47,7 +47,7 @@ def update_order(OrderID, CustomerID, OrderDate, Status):
     conn.commit()
     cursor.close()
     conn.close()
-    print("Đã cập nhật đơn hàng:", OrderID)
+    print("Updated order:", OrderID)
 
 
 # DELETE
@@ -59,4 +59,4 @@ def delete_order(OrderID):
     conn.commit()
     cursor.close()
     conn.close()
-    print("Đã xóa đơn hàng:", OrderID)
+    print("Deleted order:", OrderID)
