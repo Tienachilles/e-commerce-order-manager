@@ -1,30 +1,34 @@
-create database if not exists ecommerce;
-use ecommerce;
-set foreign_key_checks = 0;
--- xóa toàn bộ dữ liệu trong bảng
-truncate table OrdersItems;
-truncate table Orders;
-truncate table Products;
-truncate table Customers;
+CREATE DATABASE IF NOT EXISTS ecommerce;
+USE ecommerce;
 
-set foreign_key_checks = 1;
+-- Disable foreign key checks to allow truncation
+SET FOREIGN_KEY_CHECKS = 0;
 
--- 1.Customers
-insert into Customers(CustomerID, Name) Values
+-- Clear all existing data in tables
+TRUNCATE TABLE OrdersItems;
+TRUNCATE TABLE Orders;
+TRUNCATE TABLE Products;
+TRUNCATE TABLE Customers;
+
+-- Re-enable foreign key checks (optional, can also be done at the end)
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- 1. Customers
+INSERT INTO Customers(CustomerID, Name) VALUES
 ('C001', 'Customer1'),
 ('C002', 'Customer2'),
 ('C003', 'Customer3'),
 ('C004', 'Customer4'),
 ('C005', 'Customer5'),
 ('C006', 'Customer6'),
-('C007','Customer7'),
-('C008','Customer8'),
-('C011','Customer11'),
-('C013','Customer13'),
-('C018','Customer18'),
-('C019','Customer19'),
-('C025','Customer25'),
-('C040','Customer40'),
+('C007', 'Customer7'),
+('C008', 'Customer8'),
+('C011', 'Customer11'),
+('C013', 'Customer13'),
+('C018', 'Customer18'),
+('C019', 'Customer19'),
+('C025', 'Customer25'),
+('C040', 'Customer40'),
 ('C009', 'Customer9'),
 ('C010', 'Customer10'),
 ('C012', 'Customer12'),
@@ -61,8 +65,8 @@ insert into Customers(CustomerID, Name) Values
 ('C049', 'Customer49'),
 ('C050', 'Customer50');
 
--- 2.Products
-insert into Products(ProductID, Name, Price) values
+-- 2. Products
+INSERT INTO Products(ProductID, Name, Price) VALUES
 ('P001', 'Mouse', 150),
 ('P002', 'Keyboard', 300),
 ('P003', 'Monitor', 2500),
@@ -84,8 +88,8 @@ insert into Products(ProductID, Name, Price) values
 ('P019', 'Laptop', 20000),
 ('P020', 'Tablet', 8000);
 
--- 3.Orders
-insert into Orders(OrderID, CustomerID, OrderDate, Status) values
+-- 3. Orders
+INSERT INTO Orders(OrderID, CustomerID, OrderDate, Status) VALUES
 ('O001','C041','2025-11-14','Pending'),
 ('O002','C006','2025-10-30','Shipped'),
 ('O003','C014','2025-11-10','Delivered'),
@@ -166,9 +170,10 @@ insert into Orders(OrderID, CustomerID, OrderDate, Status) values
 ('O078','C018','2025-11-07','Shipped'),
 ('O079','C046','2025-11-11','Pending'),
 ('O080','C027','2025-11-16','Pending');
- -- 4. OrderItems
- insert into OrdersItems(OrderID, ProductID, Quantity, Price) values
- ('O001','P009',2,50),
+
+-- 4. Order Items
+INSERT INTO OrdersItems(OrderID, ProductID, Quantity, Price) VALUES
+('O001','P009',2,50),
 ('O001','P008',1,1000),
 ('O001','P019',5,20000),
 ('O002','P001',1,150),
