@@ -66,3 +66,43 @@ The database schema follows the **Third Normal Form (3NF)** to ensure no data re
 ```bash
 git clone [https://github.com/YOUR_USERNAME/ecommerce-order-manager.git](https://github.com/YOUR_USERNAME/ecommerce-order-manager.git)
 cd ecommerce-order-manager
+
+### Step 2: Install Dependencies
+```bash
+pip install -r requirements.txt
+
+### Step 3: Database Configuration
+1.  Open **MySQL Workbench** or your preferred SQL tool.
+2.  Run the script `schema.sql` to create the database structure.
+3.  Run the script `seed.sql` to populate sample data.
+4.  Create a `.env` file in the root directory (if required) or update DB credentials in `app/core/connection.py`.
+
+### Step 4: Run the Application
+```bash
+python -m app.main
+
+## 📸 Screenshots
+
+### Welcome Screen
+![Welcome](assets/gui_welcome.png)
+
+### Dashboard Overview
+![Dashboard](assets/gui_main_layout.png)
+
+### Product Catalog (Grid View)
+![Products](assets/gui_products.png)
+
+### Order Management
+![Orders](assets/gui_orders.png)
+
+## 👥 Authors
+**Group Project - National Economics University (NEU)**
+* **Be Thanh Tien** (ID: 11247357)
+* **Pham Ba Viet** (ID: 11247371)
+* **Hoang Thi Phuong Linh** (ID: 11247308)
+
+
+**Supervisor:** Tran Hung
+
+---
+*Created for the "Database Systems" Midterm Project.*
