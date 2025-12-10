@@ -87,7 +87,7 @@ python -m app.main
 ![Welcome](assets/gui_welcome.png)
 
 ### Dashboard Overview
-![Dashboard](assets/gui_main_layout.png)
+![Dashboard](assets/gui_dashboard.png)
 
 ### Product Catalog (Grid View)
 ![Products](assets/gui_products.png)
