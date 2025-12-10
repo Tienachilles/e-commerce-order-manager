@@ -66,7 +66,7 @@ The database schema follows the **Third Normal Form (3NF)** to ensure no data re
 ```bash
 git clone [https://github.com/YOUR_USERNAME/ecommerce-order-manager.git](https://github.com/YOUR_USERNAME/ecommerce-order-manager.git)
 cd ecommerce-order-manager
-
+```
 ### Step 2: Install Dependencies
 ```bash
 pip install -r requirements.txt
@@ -76,11 +76,11 @@ pip install -r requirements.txt
 2.  Run the script `schema.sql` to create the database structure.
 3.  Run the script `seed.sql` to populate sample data.
 4.  Create a `.env` file in the root directory (if required) or update DB credentials in `app/core/connection.py`.
-
+```
 ### Step 4: Run the Application
 ```bash
 python -m app.main
-
+```
 ## 📸 Screenshots
 
 ### Welcome Screen
