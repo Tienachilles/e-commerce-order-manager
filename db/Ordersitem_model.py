@@ -17,14 +17,14 @@ def get_order_item(OrderID, ProductID):
 # ===== CREATE =====
 def add_order_item(OrderID, ProductID, Quantity, Price):
 
-    # Nếu Order không tồn tại → không được thêm
+    # If Order does not exist -> cannot add item
     if not get_order(OrderID):
-        print("⚠ Không thể thêm OrderItem vì OrderID chưa tồn tại!")
+        print("⚠ Cannot add OrderItem because OrderID does not exist!")
         return
 
-    # Nếu Product chưa tồn tại → tự thêm sản phẩm
+    # If Product does not exist -> automatically add new product
     if not get_product(ProductID):
-        print("⚠ Product chưa tồn tại. Đang thêm mới...")
+        print("⚠ Product does not exist. Adding new product...")
         add_product(ProductID, f"Product_{ProductID}", Price)
 
     conn = get_connection()
@@ -34,7 +34,7 @@ def add_order_item(OrderID, ProductID, Quantity, Price):
     conn.commit()
     cursor.close()
     conn.close()
-    print(f"Đã thêm OrdersItem: {OrderID}, {ProductID}, Qty={Quantity}, Price={Price}")
+    print(f"Inserted OrdersItem: {OrderID}, {ProductID}, Qty={Quantity}, Price={Price}")
 
 
 # ===== UPDATE =====
@@ -46,7 +46,7 @@ def update_order_item(OrderID, ProductID, Quantity, Price):
     conn.commit()
     cursor.close()
     conn.close()
-    print(f"Đã cập nhật OrdersItem: {OrderID}, {ProductID}, Qty={Quantity}, Price={Price}")
+    print(f"Updated OrdersItem: {OrderID}, {ProductID}, Qty={Quantity}, Price={Price}")
 
 
 # ===== DELETE =====
@@ -58,4 +58,4 @@ def delete_order_item(OrderID, ProductID):
     conn.commit()
     cursor.close()
     conn.close()
-    print(f"Đã xóa OrdersItem: {OrderID}, {ProductID}")
+    print(f"Deleted OrdersItem: {OrderID}, {ProductID}")
