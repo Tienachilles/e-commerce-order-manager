@@ -6,7 +6,7 @@ import os
 import sys
 
 # -----------------------------------------------------------------------------
-#  ROBUST IMPORT HANDLING (allows both "python main.py" & "python -m app.main")
+#  ROBUST IMPORT HANDLING 
 # -----------------------------------------------------------------------------
 try:
     from .views.dashboard_view import render_dashboard
@@ -138,12 +138,12 @@ class App:
 
         # Navigation Structure
         nav_items = [
-            ("dashboard", "📊  Dashboard", self.show_dashboard),
-            ("customers", "👥  Customers", self.show_customers),
-            ("products", "📦  Products", self.show_products),
-            ("orders", "🛒  Orders", self.show_orders),
-            ("items", "🧾  Order Items", self.show_items),
-            ("reports", "📈  Reports", self.show_reports),
+            ("dashboard", "Dashboard", self.show_dashboard),
+            ("customers", "Customers", self.show_customers),
+            ("products", "Products", self.show_products),
+            ("orders", "Orders", self.show_orders),
+            ("items", "Order Items", self.show_items),
+            ("reports", "Reports", self.show_reports),
         ]
 
         for key, text, cmd in nav_items:
@@ -268,3 +268,4 @@ if __name__ == "__main__":
     root.update_idletasks()
     App(root)
     root.mainloop()
+
