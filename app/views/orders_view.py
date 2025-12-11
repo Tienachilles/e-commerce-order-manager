@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from app.controllers.orders_controller import OrdersController
 from app.core.validators import parse_date
+from app.views.table_factory import TableFactory
 
 def render_orders(parent):
     ctrl = OrdersController()
@@ -9,22 +10,18 @@ def render_orders(parent):
     frame = ttk.Frame(parent)
     frame.pack(fill="both", expand=True)
 
-    cols = ("OrderID", "CustomerID", "OrderDate", "Status")
-    tree = ttk.Treeview(frame, columns=cols, show="headings")
-    for c in cols:
-        tree.heading(c, text=c)
-        tree.column(c, width=160)
-    tree.pack(fill="both", expand=True)
+    columns = ("OrderID", "CustomerID", "OrderDate", "Status")
+    table = TableFactory.create(frame, columns)
 
     def load():
-        tree.delete(*tree.get_children())
+        table.delete(*table.get_children())
         for r in ctrl.list():
-            tree.insert("", "end", values=r)
+            table.insert("", "end", values=r)
 
     load()
 
     btn_frame = ttk.Frame(frame)
-    btn_frame.pack(fill="x")
+    btn_frame.pack(fill="x", pady=10)
 
     def on_add():
         w = tk.Toplevel(); w.title("Add Order")
@@ -42,16 +39,12 @@ def render_orders(parent):
         e_status = ttk.Entry(w); e_status.pack()
 
         def save():
-            oid = e_oid.get()
-            cid = e_cid.get()
-            date = e_date.get()
-            status = e_status.get()
-
-            if parse_date(date) is None:
+            date = parse_date(e_date.get())
+            if date is None:
                 messagebox.showerror("Invalid Date", "Use YYYY-MM-DD")
                 return
 
-            ctrl.add(oid, cid, date, status)
+            ctrl.add(e_oid.get(), e_cid.get(), e_date.get(), e_status.get())
             load()
             w.destroy()
 
