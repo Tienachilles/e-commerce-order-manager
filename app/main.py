@@ -26,7 +26,7 @@ except ImportError:
 
 
 # =============================================================================
-#   APP VERSION 2.0 — COMPLETE UI UPGRADE
+#   APP VERSION 2.0 
 # =============================================================================
 class App:
     def __init__(self, root):
@@ -46,7 +46,7 @@ class App:
         self.show_welcome_screen()
 
     # =============================================================================
-    #   STYLE SYSTEM (VERSION 2.0)
+    #   STYLE SYSTEM 
     # =============================================================================
     def setup_style(self):
         self.style = ttk.Style()
@@ -108,7 +108,7 @@ class App:
         self.style.map("Treeview", background=[("selected", self.colors["accent"])])
 
     # =============================================================================
-    #   LAYOUT SYSTEM v2.0
+    #   LAYOUT SYSTEM 
     # =============================================================================
     def create_layout(self):
         # Sidebar
@@ -190,58 +190,77 @@ class App:
         self.hero_image_ref = None
 
     # =============================================================================
-    #   WELCOME SCREEN
+    #   WELCOME SCREEN 
     # =============================================================================
     def show_welcome_screen(self):
         self.clear_content()
 
+        # reset nav buttons
         if self.current_btn:
             self.buttons[self.current_btn].configure(style="Nav.TButton")
             self.current_btn = None
 
-        frame = tk.Frame(self.content, bg=self.colors["bg_light"])
-        frame.pack(fill="both", expand=True)
+        self.welcome_frame = tk.Frame(self.content, bg=self.colors["bg_light"])
+        self.welcome_frame.pack(fill="both", expand=True)
 
+        # Path to welcome image
         img_path = os.path.join(
             os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
             "assets",
             "welcome_hero.jpg"
         )
 
+        # load original image once (full resolution)
         try:
-            image = Image.open(img_path)
-            resized = image.resize((1400, 820), Image.Resampling.LANCZOS)
-            tk_img = ImageTk.PhotoImage(resized)
-            self.hero_image_ref = tk_img
-
-            lbl_img = tk.Label(frame, image=tk_img, bg=self.colors["bg_light"])
-            lbl_img.place(relwidth=1, relheight=1)
-
-            tk.Label(
-                frame,
-                text="Welcome to E-Commerce Manager Pro",
-                font=("Segoe UI", 34, "bold"),
-                fg="white",
-                bg="#1e293b",
-                padx=20, pady=10
-            ).place(relx=0.5, rely=0.4, anchor="center")
-
-            tk.Label(
-                frame,
-                text="Choose a section from the sidebar to begin.",
-                font=("Segoe UI", 16),
-                fg="#cbd5e1",
-                bg="#1e293b"
-            ).place(relx=0.5, rely=0.5, anchor="center")
-
+            self.original_hero_img = Image.open(img_path)
         except:
-            tk.Label(
-                frame,
-                text="Welcome — Image Not Found",
-                font=("Segoe UI", 20, "bold"),
-                bg=self.colors["bg_light"],
-                fg="red"
-            ).pack(expand=True)
+            tk.Label(self.welcome_frame, text="Welcome Image Not Found", font=("Arial", 20)).pack(expand=True)
+            return
+
+        # Create a label for dynamic image
+        self.hero_label = tk.Label(self.welcome_frame, bg=self.colors["bg_light"])
+        self.hero_label.place(relwidth=1, relheight=1)
+
+        # overlay texts
+        self.hero_title = tk.Label(
+            self.welcome_frame,
+            text="Welcome Back, Administrator!",
+            font=("Segoe UI", 34, "bold"),
+            fg="white",
+            bg="#1e293b",
+            padx=20,
+            pady=10
+        )
+        self.hero_title.place(relx=0.5, rely=0.4, anchor="center")
+
+        self.hero_sub = tk.Label(
+            self.welcome_frame,
+            text="Select an option from the sidebar to begin managing your store.",
+            font=("Segoe UI", 16),
+            fg="#cbd5e1",
+            bg="#1e293b"
+        )
+        self.hero_sub.place(relx=0.5, rely=0.5, anchor="center")
+
+        # BIND window resize event
+        self.content.bind("<Configure>", self.resize_welcome_image)
+
+    # =============================================================================
+    #   RESIZE LOGIC FOR HERO IMAGE
+    # =============================================================================
+    def resize_welcome_image(self, event):
+        if event.width < 400 or event.height < 300:
+            return  # avoid weird small resizing
+
+        # dynamically resize original image
+        resized = self.original_hero_img.resize(
+            (event.width, event.height),
+            Image.Resampling.LANCZOS
+        )
+
+        self.hero_image_ref = ImageTk.PhotoImage(resized)
+        self.hero_label.config(image=self.hero_image_ref)
+
 
     # =============================================================================
     #   PAGE ROUTERS (CALL VIEW FILES)
@@ -268,4 +287,5 @@ if __name__ == "__main__":
     root.update_idletasks()
     App(root)
     root.mainloop()
+
 
