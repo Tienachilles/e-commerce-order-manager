@@ -26,12 +26,12 @@ except ImportError:
 
 
 # =============================================================================
-#   APP VERSION 2.0 
+#   APP VERSION 1.0 
 # =============================================================================
 class App:
     def __init__(self, root):
         self.root = root
-        self.root.title("E-Commerce Manager Pro — Version 2.0")
+        self.root.title("E-Commerce Manager Pro — Version 1.0")
         self.root.geometry("1380x820")
         self.root.minsize(1200, 760)
 
@@ -161,7 +161,7 @@ class App:
         # Footer version label
         tk.Label(
             self.sidebar,
-            text="Version 2.0",
+            text="Version 1.0",
             font=("Segoe UI", 9),
             bg=self.colors["bg_dark"],
             fg="#64748b"
@@ -287,5 +287,6 @@ if __name__ == "__main__":
     root.update_idletasks()
     App(root)
     root.mainloop()
+
 
 
