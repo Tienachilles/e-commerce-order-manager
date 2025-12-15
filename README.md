@@ -16,6 +16,7 @@ A comprehensive desktop application for managing retail operations, built with *
 - [Database Design](#-database-design)
 - [Installation & Setup](#-installation--setup)
 - [Screenshots](#-screenshots)
+- [Video](#-video)
 - [Authors](#-authors)
 
 ## 📖 Overview
@@ -95,6 +96,8 @@ python -m app.main
 ### Order Management
 ![Orders](assets/gui_orders.png)
 
+## 🎥 Video
+Watch the project video here: https://www.youtube.com/watch?v=4KHylXYQOnA
 ## 👥 Authors
 **Group Project - National Economics University (NEU)**
 * **Be Thanh Tien** (ID: 11247357)
